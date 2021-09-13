@@ -532,13 +532,13 @@ end
 
 local function run_diff(a: {string}, b: {string}): {Hunk}
   local diff_opts = config.diff_opts
-  local f: function({string}, {string}, string, boolean): {Hunk}
+  local f: function({string}, {string}, string, boolean, boolean): {Hunk}
   if config.diff_opts.internal then
     f = require('gitsigns.diff_int').run_diff
   else
     f = require('gitsigns.diff_ext').run_diff
   end
-  return f(a, b, diff_opts.algorithm, diff_opts.indent_heuristic)
+  return f(a, b, diff_opts.algorithm, diff_opts.indent_heuristic, false)
 end
 
 local function get_blame_hunk(repo: git.Repo, info: git.BlameInfo): Hunk, integer, integer
